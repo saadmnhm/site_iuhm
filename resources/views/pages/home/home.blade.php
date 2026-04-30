@@ -83,7 +83,7 @@
                 <p class="mt-5 max-w-xl text-base leading-8 text-slate-600">
                     {{ __('ui.home_history_description') }}
                 </p>
-                <a href="{{ route('pages.show', 'services') }}" class="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#16254d] transition hover:text-[#0f2454]">
+                <a href="{{ route('services.index') }}" class="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#16254d] transition hover:text-[#0f2454]">
                     {{ __('ui.home_learn_more') }}
                     <svg class="size-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                         <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
@@ -114,7 +114,7 @@
                     <h2 class="mt-4 text-3xl font-bold tracking-tight text-[#16254d] sm:text-4xl">{{ __('ui.home_services_title') }}</h2>
                 </div>
 
-                <a href="{{ route('pages.show', 'services') }}" class="hidden text-sm font-semibold text-[#1d6b35] transition hover:text-[#124722] sm:inline-flex">
+                <a href="{{ route('services.index') }}" class="hidden text-sm font-semibold text-[#1d6b35] transition hover:text-[#124722] sm:inline-flex">
                     {{ __('ui.home_view_all_services') }}
                 </a>
             </div>
@@ -147,7 +147,7 @@
             </div>
 
             <div class="mt-8 text-right sm:hidden">
-                <a href="{{ route('pages.show', 'services') }}" class="text-sm font-semibold text-[#1d6b35] transition hover:text-[#124722]">{{ __('ui.home_view_all_services') }}</a>
+                <a href="{{ route('services.index') }}" class="text-sm font-semibold text-[#1d6b35] transition hover:text-[#124722]">{{ __('ui.home_view_all_services') }}</a>
             </div>
         </div>
     </section>

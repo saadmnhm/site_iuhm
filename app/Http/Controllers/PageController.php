@@ -50,27 +50,5 @@ class PageController extends Controller
         return view('pages.home.home', compact('page'));
     }
 
-    public function show(Page $page): View
-    {
-        abort_unless($page->is_published, 404);
 
-        $page->load([
-            'sections' => fn ($query) => $query->active()->ordered(),
-        ]);
-
-        $posts = $page->posts()
-            ->published()
-            ->latest('published_at')
-            ->paginate(6)
-            ->withQueryString();
-
-        // Check if there's a custom template for this page slug
-        $customTemplatesFolder = ['observateur', 'services', 'about', 'resources'];
-        $customTemplates = ['observateur-urbain', 'services', 'about', 'resources'];
-        $view = in_array($page->slug, $customTemplates)
-            ? "pages.{$customTemplatesFolder[array_search($page->slug, $customTemplates)]}.{$page->slug}" 
-            : 'pages.show';
-
-        return view($view, compact('page', 'posts'));
-    }
 }

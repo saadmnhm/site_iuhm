@@ -79,7 +79,7 @@
                 <p class="mt-5 max-w-xl text-base leading-8 text-slate-600">
                     {{ __('ui.about_history_description') }}
                 </p>
-                <a href="{{ route('pages.show', 'services') }}" class="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#16254d] transition hover:text-[#0f2454]">
+                <a href="{{ route('services.index') }}" class="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#16254d] transition hover:text-[#0f2454]">
                     {{ __('ui.about_history_cta') }}
                     <svg class="size-4" viewBox="0 0 20 20" fill="none" aria-hidden="true">
                         <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />

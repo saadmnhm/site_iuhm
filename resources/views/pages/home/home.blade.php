@@ -178,7 +178,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="relative overflow-hidden rounded-[2rem] border border-white bg-white shadow-2xl shadow-slate-300/30">
                 <div class="">
-                    <div class="absolute z-10 p-6 sm:p-8 lg:p-10">
+                    <div class=" md:absolute z-10 p-6 sm:p-8 lg:p-10">
                         <div class="max-w-sm rounded-[1.75rem] border border-slate-100 bg-white/95 p-6 shadow-xl shadow-slate-300/30 backdrop-blur">
                             <h2 class="text-3xl font-bold tracking-tight text-[#16254d]">{{ __('ui.home_contact_title') }}</h2>
                             <p class="mt-4 text-sm leading-7 text-slate-600">

@@ -45,7 +45,7 @@
             </nav>
 
             <div class="flex items-center gap-2 sm:gap-3">
-                @include('partials.language-switcher')
+                @include('.pages.partials.language-switcher')
 
                 <a
                     href="{{ route('home') }}#contact"

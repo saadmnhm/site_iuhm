@@ -18,7 +18,7 @@ Route::get('news', [PostController::class, 'index'])->name('posts.index');
 Route::get('news/la-preservation-du-patrimoine-dans-la-modernite', function() {
     $post = new \App\Models\Post();
     $post->slug = 'la-preservation-du-patrimoine-dans-la-modernite';
-    return view('posts.show', compact('post'));
+    return view('pages.posts.show', compact('post'));
 });
 Route::get('news/{post:slug}', [PostController::class, 'show'])->name('posts.show');
 

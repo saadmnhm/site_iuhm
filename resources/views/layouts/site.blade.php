@@ -20,14 +20,14 @@
     </head>
     <body class="site-shell">
         <div class="relative min-h-screen">
-            @include('partials.header')
+            @include('pages.partials.header')
 
             <main class="pb-16">
 
                 @yield('content')
             </main>
 
-            @include('partials.footer')
+            @include('.pages.partials.footer')
         </div>
 
         @stack('modals')

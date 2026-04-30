@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function configureViewData(): void
     {
-        View::composer(['layouts.site', 'partials.header'], function ($view): void {
+        View::composer(['layouts.site', '.pages.partials.header'], function ($view): void {
             if (! Schema::hasTable('pages')) {
                 $view->with('navigationPages', collect());
 

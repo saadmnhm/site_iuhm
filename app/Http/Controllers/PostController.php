@@ -48,7 +48,7 @@ class PostController extends Controller
             ->ordered()
             ->get(['id', 'slug', 'title']);
 
-        return view('posts.index', [
+        return view('pages.posts.index', [
             'posts' => $posts,
             'featuredPosts' => $featuredPosts,
             'pages' => $pages,
@@ -72,6 +72,6 @@ class PostController extends Controller
             ->limit(3)
             ->get();
 
-        return view('posts.show', compact('post', 'relatedPosts'));
+        return view('pages.posts.show', compact('post', 'relatedPosts'));
     }
 }

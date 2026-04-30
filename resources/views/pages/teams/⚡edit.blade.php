@@ -137,7 +137,7 @@ new class extends Component
 }; ?>
 
 <section class="w-full">
-    @include('partials.settings-heading')
+    @include('.pages.partials.settings-heading')
 
     <flux:heading class="sr-only">{{ __('Teams') }}</flux:heading>
 

@@ -19,7 +19,7 @@ return [
     'volunteer' => 'Volunteer',
     'join_us' => 'Join Us',
     'donate' => 'Donate',
-    'nav_news' => 'News',
+    'nav_news' => 'Actualités',
     'nav_services' => 'Services',
     'nav_articles' => 'Articles',
     'nav_deliverables' => 'Deliverables',

@@ -40,6 +40,6 @@ class ArticleController extends Controller
             ->ordered()
             ->get(['id', 'slug', 'title']);
 
-        return view('articles.index', compact('posts', 'pages'));
+        return view('pages.articles.index', compact('posts', 'pages'));
     }
 }

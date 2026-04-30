@@ -47,7 +47,7 @@ class PageController extends Controller
             $page->setRelation('posts', collect());
         }
 
-        return view('pages.home', compact('page'));
+        return view('pages.home.home', compact('page'));
     }
 
     public function show(Page $page): View
@@ -65,9 +65,10 @@ class PageController extends Controller
             ->withQueryString();
 
         // Check if there's a custom template for this page slug
+        $customTemplatesFolder = ['observateur', 'services', 'about', 'resources'];
         $customTemplates = ['observateur-urbain', 'services', 'about', 'resources'];
         $view = in_array($page->slug, $customTemplates)
-            ? "pages.{$page->slug}" 
+            ? "pages.{$customTemplatesFolder[array_search($page->slug, $customTemplates)]}.{$page->slug}" 
             : 'pages.show';
 
         return view($view, compact('page', 'posts'));

@@ -50,7 +50,7 @@
         <div class="grid lg:grid-cols-[1fr_320px] gap-12 lg:gap-20">
             
             <!-- Main Content Area -->
-            <article class="max-w-2xl mx-auto lg:mx-0 w-full">
+            <article class="lg:pl-4 mx-auto lg:mx-0 w-full">
                 <!-- Title & Meta -->
                 <header class="mb-12">
                     <h1 class="text-[2.5rem] md:text-[3.2rem] font-bold text-[#0B1528] leading-[1.1] mb-8">

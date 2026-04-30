@@ -64,6 +64,12 @@ class PageController extends Controller
             ->paginate(6)
             ->withQueryString();
 
-        return view('pages.show', compact('page', 'posts'));
+        // Check if there's a custom template for this page slug
+        $customTemplates = ['observateur-urbain', 'services', 'about', 'resources'];
+        $view = in_array($page->slug, $customTemplates)
+            ? "pages.{$page->slug}" 
+            : 'pages.show';
+
+        return view($view, compact('page', 'posts'));
     }
 }

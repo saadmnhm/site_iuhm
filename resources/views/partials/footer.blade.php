@@ -11,7 +11,7 @@
                 <ul class="mt-4 space-y-2 text-sm">
                     <li><a href="{{ route('home') }}#history" class="transition hover:text-[#112b56]">{{ __('ui.history') }}</a></li>
                     <li><a href="{{ route('posts.index') }}" class="transition hover:text-[#112b56]">{{ __('ui.nav_news') }}</a></li>
-                    <li><a href="{{ route('home') }}#services" class="transition hover:text-[#112b56]">{{ __('ui.nav_services') }}</a></li>
+                    <li><a href="{{ route('pages.show', 'services') }}" class="transition hover:text-[#112b56]">{{ __('ui.nav_services') }}</a></li>
                     <li><a href="{{ route('home') }}#trust" class="transition hover:text-[#112b56]">{{ __('ui.partners') }}</a></li>
                     <li><a href="{{ route('posts.index') }}" class="transition hover:text-[#112b56]">{{ __('ui.nav_articles') }}</a></li>
                     <li><a href="{{ route('home') }}#contact" class="transition hover:text-[#112b56]">{{ __('ui.nav_deliverables') }}</a></li>

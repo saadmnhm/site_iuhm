@@ -35,6 +35,14 @@ class PostController extends Controller
             ->paginate(9)
             ->withQueryString();
 
+        $featuredPosts = Post::query()
+            ->with(['page', 'section', 'author'])
+            ->published()
+            ->latest('published_at')
+            ->latest('id')
+            ->limit(6)
+            ->get();
+
         $pages = Page::query()
             ->published()
             ->ordered()
@@ -42,6 +50,7 @@ class PostController extends Controller
 
         return view('posts.index', [
             'posts' => $posts,
+            'featuredPosts' => $featuredPosts,
             'pages' => $pages,
             'search' => $search,
             'pageSlug' => $pageSlug,
@@ -54,6 +63,15 @@ class PostController extends Controller
 
         $post->load(['page', 'section', 'author']);
 
-        return view('posts.show', compact('post'));
+        $relatedPosts = Post::query()
+            ->with(['page', 'section', 'author'])
+            ->published()
+            ->whereKeyNot($post->id)
+            ->latest('published_at')
+            ->latest('id')
+            ->limit(3)
+            ->get();
+
+        return view('posts.show', compact('post', 'relatedPosts'));
     }
 }

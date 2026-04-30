@@ -10,18 +10,38 @@
             </a>
 
             <nav class="hidden items-center gap-6 lg:flex">
-                <a href="{{ route('posts.index') }}" class="text-sm font-semibold text-[#214f95] transition hover:text-[#122f58]">
-                    {{ __('ui.nav_news') }}
-                </a>
-                <a href="{{ route('home') }}#services" class="text-sm font-semibold text-[#214f95] transition hover:text-[#122f58]">
-                    {{ __('ui.nav_services') }}
-                </a>
-                <a href="{{ route('posts.index') }}" class="text-sm font-semibold text-[#214f95] transition hover:text-[#122f58]">
-                    {{ __('ui.nav_articles') }}
-                </a>
-                <a href="{{ route('home') }}#trust" class="text-sm font-semibold text-[#214f95] transition hover:text-[#122f58]">
-                    {{ __('ui.nav_deliverables') }}
-                </a>
+                <div class="relative inline-block">
+                    <a href="{{ route('posts.index') }}" class="text-sm font-semibold text-[#214f95] transition hover:text-[#122f58]">
+                        {{ __('ui.nav_news') }}
+                    </a>
+                    @if(request()->routeIs('posts.index'))
+                        <div class="absolute -bottom-1.5 left-0 h-0.5 w-full bg-[#10752d]"></div>
+                    @endif
+                </div>
+                <div class="relative inline-block">
+                    <a href="{{ route('pages.show', 'services') }}" class="text-sm font-semibold text-[#214f95] transition hover:text-[#122f58]">
+                        {{ __('ui.nav_services') }}
+                    </a>
+                    @if(request()->routeIs('pages.show') && request()->segment(2) === 'services')
+                        <div class="absolute -bottom-1.5 left-0 h-0.5 w-full bg-[#10752d]"></div>
+                    @endif
+                </div>
+                <div class="relative inline-block">
+                    <a href="{{ route('articles.index') }}" class="text-sm font-semibold text-[#214f95]  transition hover:text-[#0a471b]">
+                        {{ __('ui.nav_articles') ?? 'Articles' }}
+                    </a>
+                    @if(request()->routeIs('articles.index'))
+                        <div class="absolute -bottom-1.5 left-0 h-0.5 w-full bg-[#10752d]"></div>
+                    @endif
+                </div>
+                <div class="relative inline-block">
+                    <a href="{{ route('pages.show', 'resources') }}" class="text-sm font-semibold text-[#214f95] transition hover:text-[#122f58]">
+                        Livrables
+                    </a>
+                    @if(request()->routeIs('pages.show') && request()->segment(2) === 'resources')
+                        <div class="absolute -bottom-1.5 left-0 h-0.5 w-full bg-[#10752d]"></div>
+                    @endif
+                </div>
             </nav>
 
             <div class="flex items-center gap-2 sm:gap-3">
@@ -61,14 +81,14 @@
                 <a href="{{ route('posts.index') }}" class="rounded-xl px-3 py-2 text-sm font-semibold text-[#214f95] hover:bg-slate-100">
                     {{ __('ui.nav_news') }}
                 </a>
-                <a href="{{ route('home') }}#services" class="rounded-xl px-3 py-2 text-sm font-semibold text-[#214f95] hover:bg-slate-100">
+                <a href="{{ route('pages.show', 'services') }}" class="rounded-xl px-3 py-2 text-sm font-semibold text-[#214f95] hover:bg-slate-100">
                     {{ __('ui.nav_services') }}
                 </a>
-                <a href="{{ route('posts.index') }}" class="rounded-xl px-3 py-2 text-sm font-semibold text-[#214f95] hover:bg-slate-100">
-                    {{ __('ui.nav_articles') }}
+                <a href="{{ route('articles.index') }}" class="rounded-xl px-3 py-2 text-sm font-semibold text-[#214f95]  hover:bg-slate-100">
+                    {{ __('ui.nav_articles') ?? 'Articles' }}
                 </a>
-                <a href="{{ route('home') }}#trust" class="rounded-xl px-3 py-2 text-sm font-semibold text-[#214f95] hover:bg-slate-100">
-                    {{ __('ui.nav_deliverables') }}
+                <a href="{{ route('pages.show', 'resources') }}" class="rounded-xl px-3 py-2 text-sm font-semibold text-[#214f95] hover:bg-slate-100">
+                    Livrables
                 </a>
                 <a href="{{ route('home') }}#contact" class="rounded-xl bg-[#0f2454] px-3 py-2 text-center text-sm font-semibold text-white">
                     {{ __('ui.donate') }}

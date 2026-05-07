@@ -18,7 +18,7 @@ return [
     'press_kit' => 'ملف الصحافة',
     'volunteer' => 'التطوع',
     'join_us' => 'انضم الينا',
-    'donate' => 'تبرع',
+    'zettat' => 'مساحة زطاط',
     'nav_news' => 'الاخبار',
     'nav_services' => 'الخدمات',
     'nav_articles' => 'المقالات',

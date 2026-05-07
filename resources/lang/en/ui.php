@@ -18,7 +18,7 @@ return [
     'press_kit' => 'Press Kit',
     'volunteer' => 'Volunteer',
     'join_us' => 'Join Us',
-    'donate' => 'Donate',
+    'zettat' => 'Zettat Space',
     'nav_news' => 'Actualités',
     'nav_services' => 'Services',
     'nav_articles' => 'Articles',

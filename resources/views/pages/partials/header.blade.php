@@ -48,10 +48,10 @@
                 @include('.pages.partials.language-switcher')
 
                 <a
-                    href="{{ route('home') }}#contact"
+                    href="https://dev.iuhm.org/user/login" target="_blank" rel="noopener noreferrer"
                     class="hidden rounded-full bg-[#0f2454] px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#0f2454]/30 transition hover:bg-[#0d1d46] sm:inline-flex"
                 >
-                    {{ __('ui.donate') }}
+                    {{ __('ui.zettat') }}
                 </a>
 
                 <button

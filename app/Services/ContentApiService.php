@@ -201,6 +201,24 @@ class ContentApiService
     }
 
     /**
+     * Submit a contact form message via the ERP API.
+     *
+     * @return array<string, mixed>  Returns ['success' => true] or ['error' => string]
+     */
+    public function submitContact(string $name, string $email, ?string $phone, ?string $subject, string $message): array
+    {
+        $payload = array_filter([
+            'name'    => $name,
+            'email'   => $email,
+            'phone'   => $phone,
+            'subject' => $subject,
+            'message' => $message,
+        ], fn ($v) => $v !== null && $v !== '');
+
+        return $this->post('/contacts', $payload);
+    }
+
+    /**
      * Invalidate all cached API responses (call after writing to ERP).
      */
     public function flushCache(): void

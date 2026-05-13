@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Newsletter;
 
-use App\Models\Media\NewsletterSubscriber;
+use App\Services\ContentApiService;
 use Livewire\Component;
 
 class SubscribeForm extends Component
@@ -15,7 +15,7 @@ class SubscribeForm extends Component
     protected function rules(): array
     {
         return [
-            'email' => 'required|email|max:255|unique:newsletter_subscribers,email',
+            'email' => 'required|email|max:255',
         ];
     }
 
@@ -24,22 +24,23 @@ class SubscribeForm extends Component
         return [
             'email.required' => 'L\'adresse e-mail est obligatoire.',
             'email.email'    => 'Veuillez saisir une adresse e-mail valide.',
-            'email.unique'   => 'Cette adresse e-mail est déjà inscrite.',
         ];
     }
 
-    public function subscribe(): void
+    public function subscribe(ContentApiService $api): void
     {
         $this->validate();
 
-        NewsletterSubscriber::create([
-            'email'         => $this->email,
-            'is_active'     => true,
-            'subscribed_at' => now(),
-        ]);
+        $result = $api->subscribeNewsletter($this->email, $this->name ?: null);
+
+        if (isset($result['error'])) {
+            $this->addError('email', $result['error']);
+            return;
+        }
 
         $this->success = true;
         $this->email   = '';
+        $this->name    = '';
         $this->resetValidation();
     }
 

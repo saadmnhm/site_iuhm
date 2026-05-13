@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Page extends Model
 {
-    use HasFactory, HasLocalizedAttributes;
+    use HasFactory;
 
     /**
      * @var list<string>

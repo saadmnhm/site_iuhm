@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Contact;
 
-use App\Models\Contact;
+use App\Services\ContentApiService;
 use Livewire\Component;
 
 class ContactForm extends Component
@@ -35,17 +35,22 @@ class ContactForm extends Component
         ];
     }
 
-    public function send(): void
+    public function send(ContentApiService $api): void
     {
         $this->validate();
 
-        Contact::create([
-            'name'    => $this->name,
-            'email'   => $this->email,
-            'phone'   => $this->phone ?: null,
-            'subject' => $this->subject ?: null,
-            'message' => $this->message,
-        ]);
+        $result = $api->submitContact(
+            $this->name,
+            $this->email,
+            $this->phone ?: null,
+            $this->subject ?: null,
+            $this->message,
+        );
+
+        if (isset($result['error'])) {
+            $this->addError('message', $result['error']);
+            return;
+        }
 
         $this->success = true;
         $this->reset(['name', 'email', 'phone', 'subject', 'message']);

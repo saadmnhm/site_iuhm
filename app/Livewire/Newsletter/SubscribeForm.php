@@ -10,12 +10,12 @@ class SubscribeForm extends Component
     public string $email = '';
     public string $name  = '';
     public bool $success = false;
+    public bool $stack = false;
 
     protected function rules(): array
     {
         return [
             'email' => 'required|email|max:255|unique:iuhm.newsletter_subscribers,email',
-            'name'  => 'nullable|string|max:100',
         ];
     }
 
@@ -34,14 +34,12 @@ class SubscribeForm extends Component
 
         NewsletterSubscriber::create([
             'email'         => $this->email,
-            'name'          => $this->name ?: null,
             'is_active'     => true,
             'subscribed_at' => now(),
         ]);
 
         $this->success = true;
         $this->email   = '';
-        $this->name    = '';
         $this->resetValidation();
     }
 

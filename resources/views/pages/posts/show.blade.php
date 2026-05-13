@@ -175,16 +175,10 @@
                     <div class="absolute right-0 top-0 w-32 h-32 bg-[#162D5A] rounded-full mix-blend-screen filter blur-[40px] opacity-70 pointer-events-none"></div>
                     <div class="relative z-10">
                         <h3 class="text-[1.3rem] font-bold text-white leading-tight mb-3">Restez informé</h3>
-                        <p class="text-[0.85rem] text-slate-400 font-medium mb-8 leading-relaxed">
+                        <p class="text-[0.85rem] text-slate-400 font-medium mb-6 leading-relaxed">
                             Recevez nos dernières analyses sur l'urbanisme chaque mois.
                         </p>
-                        <form class="flex flex-col gap-3">
-                            <input type="email" placeholder="Votre email" 
-                                class="w-full rounded-xl bg-slate-800/80 border border-slate-700/50 px-4 py-3 text-[0.9rem] text-white placeholder:text-slate-500 focus:outline-none focus:border-[#82E682] focus:ring-1 focus:ring-[#82E682] shadow-inner" required>
-                            <button type="submit" class="w-full rounded-xl bg-[#82E682] py-3 text-[0.9rem] font-bold text-[#083a15] hover:bg-[#6edc6e] shadow-lg shadow-[#82E682]/10 transition-colors">
-                                S'inscrire
-                            </button>
-                        </form>
+                        @livewire('newsletter.subscribe-form', ['stack' => true])
                     </div>
                 </div>
 

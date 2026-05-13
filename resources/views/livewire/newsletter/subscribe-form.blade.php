@@ -13,13 +13,13 @@
     </div>
 @else
     <form wire:submit.prevent="subscribe" class="flex flex-col gap-3 w-full max-w-xl">
-        <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex gap-3 {{ $stack ? 'flex-col' : 'flex-col sm:flex-row' }}">
             <input type="email" wire:model="email" placeholder="votre@email.com" required
                    class="flex-1 rounded-2xl bg-slate-800/60 border px-6 py-4 text-white placeholder:text-slate-400 focus:outline-none focus:border-[#82E682] focus:ring-1 focus:ring-[#82E682] transition-colors shadow-inner
                           @error('email') border-rose-400 @else border-slate-700/50 @enderror">
             <button type="submit"
                     wire:loading.attr="disabled"
-                    class="rounded-2xl bg-[#82E682] px-8 py-4 text-base font-bold text-[#083a15] hover:bg-[#6edc6e] transition-colors whitespace-nowrap shadow-lg shadow-[#82E682]/10 disabled:opacity-70 flex items-center justify-center gap-2">
+                    class="rounded-2xl bg-[#82E682] px-8 py-4 text-base font-bold text-[#083a15] hover:bg-[#6edc6e] transition-colors whitespace-nowrap shadow-lg shadow-[#82E682]/10 disabled:opacity-70 flex items-center justify-center gap-2 {{ $stack ? 'w-full' : '' }}">
                 <span wire:loading.remove wire:target="subscribe">S'abonner</span>
                 <span wire:loading wire:target="subscribe" class="flex items-center gap-2">
                     <svg class="size-4 animate-spin" fill="none" viewBox="0 0 24 24">

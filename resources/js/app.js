@@ -1,9 +1,3 @@
-import Alpine from 'alpinejs';
-
-window.Alpine = Alpine;
-
-Alpine.start();
-
 const initModals = () => {
 	const openButtons = document.querySelectorAll('[data-open-modal]');
 	const closeButtons = document.querySelectorAll('[data-close-modal]');

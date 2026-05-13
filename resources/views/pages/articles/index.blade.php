@@ -1,4 +1,4 @@
-@extends('layouts.site')
+﻿@extends('layouts.site')
 
 @section('title', 'Articles | ' . config('app.name'))
 
@@ -52,7 +52,7 @@
                 <button @click="setCategory('{{ $p->slug }}')" 
                    :class="category === '{{ $p->slug }}' ? 'bg-[#0B1528] text-white' : 'bg-[#EAECEF] text-slate-700 hover:bg-[#DEDFE2]'"
                    class="rounded-full px-5 py-2.5 text-[0.95rem] font-bold transition-all shadow-sm">
-                    {{ $p->getLocalized('title') ?? $p->title }}
+                    {{ method_exists($p, 'getLocalized') ? $p->getLocalized('title') : ($p->title ?? '') }}
                 </button>
                 @endforeach
             </div>
@@ -78,42 +78,6 @@
         <div class="iu-container">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12" id="articles-grid">
                 
-                <!-- Static Demo Article -->
-                <article class="group flex flex-col bg-[#F8F9FA] rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <!-- Image -->
-                    <div class="relative h-56 w-full overflow-hidden bg-slate-100 shrink-0">
-                        <div class="absolute top-4 left-4 z-20 rounded-full bg-[#82E682] px-3 py-1 text-[0.65rem] font-extrabold uppercase tracking-widest text-[#0a471b] shadow-sm backdrop-blur-sm">
-                            URBANISME & CULTURE
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?auto=format&fit=crop&w=800&q=80" 
-                             alt="La préservation du patrimoine dans la modernité" 
-                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    </div>
-                    
-                    <!-- Content -->
-                    <div class="flex flex-col flex-1 p-8">
-                        <h3 class="text-[1.35rem] font-bold text-[#0B1528] leading-tight mb-4 group-hover:text-[#214f95] transition-colors">
-                            <a href="{{ url('news/la-preservation-du-patrimoine-dans-la-modernite') }}" class="focus:outline-none">
-                                <span class="absolute inset-0" aria-hidden="true"></span>
-                                La préservation du patrimoine dans la modernité
-                            </a>
-                        </h3>
-                        <p class="text-[0.95rem] font-medium text-slate-500 leading-relaxed line-clamp-4 mb-8 flex-1">
-                            Comment concilier l'héritage ancestral de nos villes avec les impératifs d'une métropole moderne et durable ? C'est le défi architectural du siècle pour Initiative Urbaine...
-                        </p>
-                        
-                        <!-- Meta Footer -->
-                        <div class="flex items-center justify-between pt-6 border-t border-[#d5d7de] mt-auto">
-                            <span class="text-[0.8rem] font-bold text-[#0B1528]">
-                                Par Dr. Amina Mansouri
-                            </span>
-                            <span class="text-[0.75rem] font-bold text-slate-400">
-                                14 Octobre 2024
-                            </span>
-                        </div>
-                    </div>
-                </article>
-
                 @forelse($posts as $post)
                 <article class="group flex flex-col bg-[#F8F9FA] rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <!-- Image -->
@@ -151,7 +115,7 @@
                                 Par {{ $post->author?->name ?? 'Initiative Urbaine' }}
                             </span>
                             <span class="text-[0.75rem] font-bold text-slate-400">
-                                {{ $post->published_at ? $post->published_at->format('d M Y') : $post->created_at->format('d M Y') }}
+                                {{ $post->published_at ? $post->published_at->format('d M Y') : '' }}
                             </span>
                         </div>
                     </div>
@@ -196,14 +160,7 @@
                         d'articles et de dossiers spéciaux directement dans votre boîte mail.
                     </p>
                     
-                    <form class="flex flex-col sm:flex-row gap-3 w-full max-w-xl">
-                        <input type="email" placeholder="votre@email.com" 
-                            class="flex-1 rounded-2xl bg-slate-800/60 border border-slate-700/50 px-6 py-4 text-white placeholder:text-slate-400 focus:outline-none focus:border-[#82E682] focus:ring-1 focus:ring-[#82E682] transition-colors shadow-inner"
-                            required>
-                        <button type="submit" class="rounded-2xl bg-[#82E682] px-8 py-4 text-base font-bold text-[#083a15] hover:bg-[#6edc6e] transition-colors whitespace-nowrap shadow-lg shadow-[#82E682]/10">
-                            S'abonner
-                        </button>
-                    </form>
+                    @livewire('newsletter.subscribe-form')
                 </div>
             </div>
         </div>
@@ -215,7 +172,7 @@
 document.addEventListener('alpine:init', () => {
     Alpine.data('articlesFilter', () => ({
         search: new URLSearchParams(window.location.search).get('search') || '',
-        category: new URLSearchParams(window.location.search).get('page') || '',
+        category: new URLSearchParams(window.location.search).get('category') || '',
         loading: false,
 
         init() {
@@ -240,9 +197,9 @@ document.addEventListener('alpine:init', () => {
             }
             
             if (this.category) {
-                url.searchParams.set('page', this.category);
+                url.searchParams.set('category', this.category);
             } else {
-                url.searchParams.delete('page');
+                url.searchParams.delete('category');
             }
             
             // fetch via ajax

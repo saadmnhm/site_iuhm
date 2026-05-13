@@ -47,6 +47,14 @@ return [
             'report' => false,
         ],
 
+        'uploads' => [
+            'driver' => 'local',
+            'root' => env('IUHM_UPLOADS_PATH', base_path('../iuhm/uploads')),
+            'url' => env('IUHM_UPLOADS_URL', env('APP_URL', 'http://localhost').'/iuhm-uploads'),
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

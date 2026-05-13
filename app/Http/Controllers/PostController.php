@@ -2,75 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Page;
-use App\Models\Post;
+use App\Services\ContentApiService;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct(private readonly ContentApiService $api) {}
+
     public function index(Request $request): View
     {
-        $search = trim((string) $request->query('search'));
-        $pageSlug = trim((string) $request->query('page'));
+        $search   = trim((string) $request->query('search', ''));
+        $category = trim((string) $request->query('category', ''));
+        $page     = (int) $request->query('page', 1);
 
-        $posts = Post::query()
-            ->with(['page', 'section', 'author'])
-            ->published()
-            ->when($search !== '', function (Builder $query) use ($search): void {
-                $query->where(function (Builder $builder) use ($search): void {
-                    foreach (config('app.supported_locales', ['en']) as $locale) {
-                        $builder
-                            ->orWhere("title->{$locale}", 'like', "%{$search}%")
-                            ->orWhere("excerpt->{$locale}", 'like', "%{$search}%");
-                    }
-                });
-            })
-            ->when($pageSlug !== '', function (Builder $query) use ($pageSlug): void {
-                $query->whereHas('page', fn (Builder $builder) => $builder->where('slug', $pageSlug));
-            })
-            ->latest('published_at')
-            ->latest('id')
-            ->paginate(9)
-            ->withQueryString();
-
-        $featuredPosts = Post::query()
-            ->with(['page', 'section', 'author'])
-            ->published()
-            ->latest('published_at')
-            ->latest('id')
-            ->limit(6)
-            ->get();
-
-        $pages = Page::query()
-            ->published()
-            ->ordered()
-            ->get(['id', 'slug', 'title']);
+        $posts         = $this->api->getNews(9, $page, $search ?: null, $category ?: null);
+        $featuredPosts = $this->api->getLatestNews(6);
+        $deliverables  = $this->api->getPopularDeliverables(4);
 
         return view('pages.posts.index', [
-            'posts' => $posts,
+            'posts'         => $posts,
             'featuredPosts' => $featuredPosts,
-            'pages' => $pages,
-            'search' => $search,
-            'pageSlug' => $pageSlug,
+            'deliverables'  => $deliverables,
+            'pages'         => collect(),
+            'search'        => $search,
+            'pageSlug'      => $category,
         ]);
     }
 
-    public function show(Post $post): View
+    public function show(string $slug): View
     {
-        abort_unless($post->is_published, 404);
+        $post = $this->api->getNewsBySlug($slug);
 
-        $post->load(['page', 'section', 'author']);
+        abort_if($post === null, 404);
 
-        $relatedPosts = Post::query()
-            ->with(['page', 'section', 'author'])
-            ->published()
-            ->whereKeyNot($post->id)
-            ->latest('published_at')
-            ->latest('id')
-            ->limit(3)
-            ->get();
+        $relatedPosts = $this->api->getLatestNews(3);
 
         return view('pages.posts.show', compact('post', 'relatedPosts'));
     }

@@ -121,64 +121,7 @@
                 </div>
 
                 <!-- Right Form Box -->
-                <div class="bg-[#F4F4F6] rounded-[2rem] p-8 sm:p-10 lg:p-12">
-                    <form class="space-y-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label class="block text-xs font-bold uppercase tracking-wide text-[#0f172a]">Nom</label>
-                                <input type="text" placeholder="Votre nom" class="w-full rounded-xl bg-[#e9e9ee] px-5 py-4 text-sm text-[#0f172a] placeholder-[#8e8e9c] border-none focus:ring-2 focus:ring-[#10752d]">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="block text-xs font-bold uppercase tracking-wide text-[#0f172a]">Prénom</label>
-                                <input type="text" placeholder="Votre prénom" class="w-full rounded-xl bg-[#e9e9ee] px-5 py-4 text-sm text-[#0f172a] placeholder-[#8e8e9c] border-none focus:ring-2 focus:ring-[#10752d]">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-[1fr_2fr] gap-6">
-                            <div class="space-y-2">
-                                <label class="block text-xs font-bold uppercase tracking-wide text-[#0f172a]">Âge</label>
-                                <input type="text" placeholder="Ex: 25" class="w-full rounded-xl bg-[#e9e9ee] px-5 py-4 text-sm text-[#0f172a] placeholder-[#8e8e9c] border-none focus:ring-2 focus:ring-[#10752d]">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="block text-xs font-bold uppercase tracking-wide text-[#0f172a]">Service</label>
-                                <div class="relative">
-                                    <select class="w-full appearance-none rounded-xl bg-[#e9e9ee] px-5 py-4 text-sm text-[#0f172a] border-none focus:ring-2 focus:ring-[#10752d]">
-                                        <option>Choisir un service</option>
-                                        <option>Éducation</option>
-                                        <option>Santé</option>
-                                        <option>Sécurité Alimentaire</option>
-                                        <option>Intégration Sociale</option>
-                                    </select>
-                                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-[#8e8e9c]">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="block text-xs font-bold uppercase tracking-wide text-[#0f172a]">Quartier</label>
-                            <input type="text" placeholder="Votre quartier de résidence" class="w-full rounded-xl bg-[#e9e9ee] px-5 py-4 text-sm text-[#0f172a] placeholder-[#8e8e9c] border-none focus:ring-2 focus:ring-[#10752d]">
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label class="block text-xs font-bold uppercase tracking-wide text-[#0f172a]">Numéro de téléphone</label>
-                                <input type="tel" placeholder="06 00 00 00 00" class="w-full rounded-xl bg-[#e9e9ee] px-5 py-4 text-sm text-[#0f172a] placeholder-[#8e8e9c] border-none focus:ring-2 focus:ring-[#10752d]">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="block text-xs font-bold uppercase tracking-wide text-[#0f172a]">Email</label>
-                                <input type="email" placeholder="votre@email.com" class="w-full rounded-xl bg-[#e9e9ee] px-5 py-4 text-sm text-[#0f172a] placeholder-[#8e8e9c] border-none focus:ring-2 focus:ring-[#10752d]">
-                            </div>
-                        </div>
-
-                        <div class="pt-4">
-                            <button type="submit" class="w-full rounded-xl bg-[#1e293b] hover:bg-[#0f172a] transition px-5 py-4 text-sm font-bold text-white">
-                                Envoyer la demande
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                @livewire('contact.contact-form')
             </div>
         </div>
     </section>
@@ -201,13 +144,7 @@
                         <p class="text-[1.05rem] text-white/80 font-medium leading-relaxed mb-8 max-w-md">
                             Recevez mensuellement nos actualités et l'impact de nos actions dans votre boîte mail.
                         </p>
-                        
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <input type="email" placeholder="Votre email" class="w-full sm:w-72 rounded-full bg-white/10 border border-white/20 px-5 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#10752d]">
-                            <button type="button" class="rounded-full bg-[#10752d] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#0c5921]">
-                                S'abonner
-                            </button>
-                        </div>
+                        @livewire('newsletter.subscribe-form')
                     </div>
                 </div>
 

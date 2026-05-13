@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use App\Services\ContentApiService;
 use Illuminate\Contracts\View\View;
 
 class PageController extends Controller
 {
+    public function __construct(private readonly ContentApiService $api) {}
+
     public function home(): View
     {
         $with = [
@@ -47,8 +50,9 @@ class PageController extends Controller
             $page->setRelation('posts', collect());
         }
 
-        return view('pages.home.home', compact('page'));
+        $latestNews    = $this->api->getLatestNews(3);
+        $trendingPosts = $this->api->getTrendingPosts(3);
+
+        return view('pages.home.home', compact('page', 'latestNews', 'trendingPosts'));
     }
-
-
 }

@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Page;
+use Illuminate\Contracts\View\View;
 
 class ServicesController extends Controller
 {
-    public function index()
+    public function index(): View
     {
-        return view('pages.services.services');
+        $page = Page::query()
+            ->where('slug', 'services')
+            ->published()
+            ->with(['sections' => fn ($q) => $q->active()->ordered()])
+            ->first();
+
+        return view('pages.services.services', compact('page'));
     }
 }

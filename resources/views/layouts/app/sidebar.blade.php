@@ -18,6 +18,27 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
+
+                <flux:sidebar.group :heading="__('Médias')" class="grid">
+                    <flux:sidebar.item icon="squares-2x2" :href="route('admin.media.dashboard')" :current="request()->routeIs('admin.media.dashboard')" wire:navigate>
+                        {{ __('Vue d\'ensemble') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="newspaper" :href="route('admin.media.blog')" :current="request()->routeIs('admin.media.blog')" wire:navigate>
+                        {{ __('Blog') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="rss" :href="route('admin.media.news')" :current="request()->routeIs('admin.media.news')" wire:navigate>
+                        {{ __('Actualités') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="folder" :href="route('admin.media.deliverables')" :current="request()->routeIs('admin.media.deliverables')" wire:navigate>
+                        {{ __('Livrables') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="mail" :href="route('admin.media.newsletters')" :current="request()->routeIs('admin.media.newsletters')" wire:navigate>
+                        {{ __('Infolettres') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item icon="inbox" :href="route('admin.media.contacts')" :current="request()->routeIs('admin.media.contacts')" wire:navigate>
+                        {{ __('Contacts') }}
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
             </flux:sidebar.nav>
 
             <flux:spacer />
@@ -99,5 +120,6 @@
         @endpersist
 
         @fluxScripts
+        @stack('scripts')
     </body>
 </html>

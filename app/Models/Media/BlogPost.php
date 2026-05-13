@@ -10,7 +10,6 @@ class BlogPost extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'iuhm';
     protected $table = 'blog_posts';
 
     protected $fillable = [

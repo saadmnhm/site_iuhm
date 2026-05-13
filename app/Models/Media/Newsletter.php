@@ -10,7 +10,6 @@ class Newsletter extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'iuhm';
     protected $table = 'newsletters';
 
     protected $fillable = [

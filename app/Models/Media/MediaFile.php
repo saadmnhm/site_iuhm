@@ -9,7 +9,6 @@ class MediaFile extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'iuhm';
     protected $table = 'media';
 
     protected $fillable = [

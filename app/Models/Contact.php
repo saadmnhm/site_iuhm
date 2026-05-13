@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    protected $connection = 'iuhm';
     protected $table = 'contacts';
 
     protected $fillable = [

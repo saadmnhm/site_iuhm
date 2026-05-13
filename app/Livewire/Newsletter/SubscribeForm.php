@@ -15,7 +15,7 @@ class SubscribeForm extends Component
     protected function rules(): array
     {
         return [
-            'email' => 'required|email|max:255|unique:iuhm.newsletter_subscribers,email',
+            'email' => 'required|email|max:255|unique:newsletter_subscribers,email',
         ];
     }
 

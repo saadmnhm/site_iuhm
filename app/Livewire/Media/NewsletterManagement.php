@@ -26,8 +26,8 @@ class NewsletterManagement extends Component
     protected function rules(): array
     {
         $uniqueRule = $this->editMode
-            ? 'nullable|integer|unique:iuhm.newsletters,issue_number,' . $this->newsletterId
-            : 'nullable|integer|unique:iuhm.newsletters,issue_number';
+            ? 'nullable|integer|unique:newsletters,issue_number,' . $this->newsletterId
+            : 'nullable|integer|unique:newsletters,issue_number';
 
         return [
             'title'            => 'required|string|max:255',

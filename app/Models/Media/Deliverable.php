@@ -10,7 +10,6 @@ class Deliverable extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'iuhm';
     protected $table = 'deliverables';
 
     protected $fillable = [

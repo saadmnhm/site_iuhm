@@ -10,7 +10,6 @@ class News extends Model
 {
     use SoftDeletes;
 
-    protected $connection = 'iuhm';
     protected $table = 'news';
 
     protected $fillable = [

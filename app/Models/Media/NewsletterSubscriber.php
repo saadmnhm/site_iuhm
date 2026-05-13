@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class NewsletterSubscriber extends Model
 {
-    protected $connection = 'iuhm';
     protected $table = 'newsletter_subscribers';
 
     protected $fillable = [

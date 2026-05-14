@@ -50,8 +50,8 @@ class PageController extends Controller
             $page->setRelation('posts', collect());
         }
 
-        $latestNews    = $this->api->getLatestNews(3);
-        $trendingPosts = $this->api->getTrendingPosts(3);
+        $latestNews    = $this->api->getLatestNews(3)->filter(fn ($p) => $p->is_published)->values();
+        $trendingPosts = $this->api->getTrendingPosts(3)->filter(fn ($p) => $p->is_published)->values();
 
         return view('pages.home.home', compact('page', 'latestNews', 'trendingPosts'));
     }

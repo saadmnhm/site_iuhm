@@ -10,10 +10,10 @@
                 <h4 class="text-xs font-bold uppercase tracking-[0.16em] text-[#173466]">{{ __('ui.navigation') }}</h4>
                 <ul class="mt-4 space-y-2 text-sm">
                     <li><a href="{{ route('home') }}#history" class="transition hover:text-[#112b56]">{{ __('ui.history') }}</a></li>
-                    <li><a href="{{ route('posts.index') }}" class="transition hover:text-[#112b56]">{{ __('ui.nav_news') }}</a></li>
+                    <li><a href="{{ route('actualite.index') }}" class="transition hover:text-[#112b56]">{{ __('ui.nav_news') }}</a></li>
                     <li><a href="{{ route('services.index') }}" class="transition hover:text-[#112b56]">{{ __('ui.nav_services') }}</a></li>
                     <li><a href="{{ route('home') }}#trust" class="transition hover:text-[#112b56]">{{ __('ui.partners') }}</a></li>
-                    <li><a href="{{ route('posts.index') }}" class="transition hover:text-[#112b56]">{{ __('ui.nav_articles') }}</a></li>
+                    <li><a href="{{ route('actualite.index') }}" class="transition hover:text-[#112b56]">{{ __('ui.nav_articles') }}</a></li>
                     <li><a href="{{ route('home') }}#contact" class="transition hover:text-[#112b56]">{{ __('ui.nav_deliverables') }}</a></li>
                 </ul>
             </div>

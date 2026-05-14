@@ -6,7 +6,7 @@ use App\Services\ContentApiService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class ActualiteController extends Controller
 {
     public function __construct(private readonly ContentApiService $api) {}
 
@@ -17,10 +17,11 @@ class PostController extends Controller
         $page     = (int) $request->query('page', 1);
 
         $posts         = $this->api->getNews(9, $page, $search ?: null, $category ?: null);
-        $featuredPosts = $this->api->getLatestNews(6);
+        $posts->setCollection($posts->getCollection()->filter(fn ($p) => $p->is_published)->values());
+        $featuredPosts = $this->api->getLatestNews(6)->filter(fn ($p) => $p->is_published)->values();
         $deliverables  = $this->api->getPopularDeliverables(4);
 
-        return view('pages.posts.index', [
+        return view('pages.actualite.index', [
             'posts'         => $posts,
             'featuredPosts' => $featuredPosts,
             'deliverables'  => $deliverables,
@@ -34,10 +35,10 @@ class PostController extends Controller
     {
         $post = $this->api->getNewsBySlug($slug);
 
-        abort_if($post === null, 404);
+        abort_if($post === null || !$post->is_published, 404);
 
-        $relatedPosts = $this->api->getLatestNews(3);
+        $relatedPosts = $this->api->getLatestNews(3)->filter(fn ($p) => $p->is_published)->values();
 
-        return view('pages.posts.show', compact('post', 'relatedPosts'));
+        return view('pages.actualite.show', compact('post', 'relatedPosts'));
     }
 }

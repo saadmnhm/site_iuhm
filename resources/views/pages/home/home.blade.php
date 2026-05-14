@@ -161,14 +161,14 @@
                     <p class="text-xs font-bold uppercase tracking-widest text-[#1d6b35] mb-2">{{ __('ui.nav_news') ?: 'Actualités' }}</p>
                     <h2 class="text-3xl font-bold tracking-tight text-[#16254d] sm:text-4xl">{{ __('ui.home_latest_news_title') ?: 'Dernières actualités' }}</h2>
                 </div>
-                <a href="{{ route('posts.index') }}" class="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition">
+                <a href="{{ route('actualite.index') }}" class="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition">
                     {{ __('ui.home_view_all') ?: 'Voir tout' }}
                     <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
             </div>
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach($latestNews as $item)
-                <article class="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden group">
+                <article class="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden group relative">
                     @if($item->image_url)
                     <div class="aspect-video overflow-hidden bg-slate-100">
                         <img src="{{ $item->image_url }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
@@ -179,7 +179,10 @@
                             {{ \Carbon\Carbon::parse($item->published_at ?? $item->created_at)->translatedFormat('d M Y') }}
                         </time>
                         <h3 class="mt-2 text-base font-bold text-[#16254d] leading-snug line-clamp-2 group-hover:text-[#1d6b35] transition-colors">
-                            <a href="{{ route('posts.show', $item->slug) }}">{{ $item->title }}</a>
+                            <a href="{{ route('actualite.show', $item->slug) }}" class="focus:outline-none">
+                                <span class="absolute inset-0" aria-hidden="true"></span>
+                                {{ $item->title }}
+                            </a>
                         </h3>
                         @if($item->excerpt)
                         <p class="mt-2 text-sm text-slate-500 line-clamp-3">{{ strip_tags($item->excerpt) }}</p>
@@ -189,7 +192,7 @@
                 @endforeach
             </div>
             <div class="mt-8 text-right sm:hidden">
-                <a href="{{ route('posts.index') }}" class="text-sm font-semibold text-[#1d6b35]">{{ __('ui.home_view_all') ?: 'Voir tout' }}</a>
+                <a href="{{ route('actualite.index') }}" class="text-sm font-semibold text-[#1d6b35]">{{ __('ui.home_view_all') ?: 'Voir tout' }}</a>
             </div>
         </div>
     </section>

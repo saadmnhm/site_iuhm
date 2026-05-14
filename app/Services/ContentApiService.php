@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\DTO\ApiDeliverable;
-use App\DTO\ApiNewsletter;
 use App\DTO\ApiPost;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -26,59 +25,12 @@ class ContentApiService
         $this->cacheTtl = (int) config('api.cache_ttl', 300); // 5 min default
     }
 
-    // -------------------------------------------------------------------------
-    // Health / Connectivity
-    // -------------------------------------------------------------------------
 
-    /**
-     * Ping the ERP API and return a status array.
-     * Never throws â€“ returns ['ok' => false] on any failure.
-     *
-     * @return array{ok: bool, latency_ms: int, status: int|null, data: array}
-     */
-    public function ping(): array
-    {
-        $url   = $this->baseUrl . '/health';
-        $start = microtime(true);
-
-        try {
-            $response = $this->buildClient()
-                ->timeout(5)
-                ->get($url);
-
-            $latency = (int) round((microtime(true) - $start) * 1000);
-
-            return [
-                'ok'         => $response->successful(),
-                'latency_ms' => $latency,
-                'status'     => $response->status(),
-                'data'       => (array) ($response->json() ?? []),
-            ];
-        } catch (\Throwable $e) {
-            Log::warning("ContentApiService: ping failed â€“ {$e->getMessage()}");
-
-            return [
-                'ok'         => false,
-                'latency_ms' => (int) round((microtime(true) - $start) * 1000),
-                'status'     => null,
-                'data'       => ['error' => $e->getMessage()],
-            ];
-        }
-    }
-
-    // -------------------------------------------------------------------------
-    // Blog Posts
-    // -------------------------------------------------------------------------
-
-    /** @return LengthAwarePaginator<ApiPost> */
     public function getBlogPosts(int $perPage = 9, int $page = 1, ?string $search = null, ?string $category = null): LengthAwarePaginator
     {
-        $params   = $this->filterParams(compact('perPage', 'page', 'search', 'category'));
+        $params = $this->filterParams(compact('perPage', 'page', 'search', 'category'));
         $response = $this->cachedGet('/blog', $params);
-
-        $items = collect($response['data'] ?? [])
-            ->map(fn (array $item) => new ApiPost($item));
-
+        $items = collect($response['data'] ?? [])->map(fn (array $item) => new ApiPost($item));
         return $this->buildPaginator($items, $response['pagination'] ?? [], $perPage, $page, '/blog');
     }
 
@@ -88,32 +40,13 @@ class ContentApiService
         return $data ? new ApiPost($data) : null;
     }
 
-    public function getBlogPostById(int $id): ?ApiPost
-    {
-        $data = ($this->get("/blog/{$id}"))['data'] ?? null;
-        return $data ? new ApiPost($data) : null;
-    }
+    
 
-    /** @return Collection<int, ApiPost> */
-    public function getTrendingPosts(int $limit = 6): Collection
-    {
-        $response = $this->cachedGet('/blog/trending', ['limit' => $limit]);
-        return collect($response['data'] ?? [])->map(fn ($i) => new ApiPost($i));
-    }
-
-    // -------------------------------------------------------------------------
-    // News
-    // -------------------------------------------------------------------------
-
-    /** @return LengthAwarePaginator<ApiPost> */
     public function getNews(int $perPage = 9, int $page = 1, ?string $search = null, ?string $category = null): LengthAwarePaginator
     {
-        $params   = $this->filterParams(compact('perPage', 'page', 'search', 'category'));
+        $params = $this->filterParams(compact('perPage', 'page', 'search', 'category'));
         $response = $this->cachedGet('/news', $params);
-
-        $items = collect($response['data'] ?? [])
-            ->map(fn (array $item) => new ApiPost($item));
-
+        $items = collect($response['data'] ?? [])->map(fn (array $item) => new ApiPost($item));
         return $this->buildPaginator($items, $response['pagination'] ?? [], $perPage, $page, '/news');
     }
 
@@ -123,88 +56,52 @@ class ContentApiService
         return $data ? new ApiPost($data) : null;
     }
 
-    /** @return Collection<int, ApiPost> */
-    public function getLatestNews(int $limit = 6): Collection
+  
+
+    public function getTrendingPosts(int $limit = 6): Collection
+    {
+        $response = $this->cachedGet('/blog/trending', ['limit' => $limit]);
+        return collect($response['data'] ?? [])->map(fn ($i) => new ApiPost($i));
+    }
+
+   
+
+    /** @return \Illuminate\Support\Collection<int, ApiPost> */
+    public function getLatestNews(int $limit = 6): \Illuminate\Support\Collection
     {
         $response = $this->cachedGet('/news/latest', ['limit' => $limit]);
         return collect($response['data'] ?? [])->map(fn ($i) => new ApiPost($i));
     }
 
-    // -------------------------------------------------------------------------
-    // Deliverables
-    // -------------------------------------------------------------------------
+   
 
-    /** @return LengthAwarePaginator<ApiDeliverable> */
     public function getDeliverables(int $perPage = 12, int $page = 1, ?string $search = null, ?string $category = null, ?string $status = null): LengthAwarePaginator
     {
-        $params   = $this->filterParams(compact('perPage', 'page', 'search', 'category', 'status'));
+        $params = $this->filterParams(compact('perPage', 'page', 'search', 'category', 'status'));
         $response = $this->cachedGet('/deliverables', $params);
-
-        $items = collect($response['data'] ?? [])
-            ->map(fn (array $item) => new ApiDeliverable($item));
-
+        $items = collect($response['data'] ?? [])->map(fn (array $item) => new ApiDeliverable($item));
         return $this->buildPaginator($items, $response['pagination'] ?? [], $perPage, $page, '/deliverables');
     }
 
-    public function getDeliverableBySlug(string $slug): ?ApiDeliverable
-    {
-        $data = ($this->get("/deliverables/slug/{$slug}"))['data'] ?? null;
-        return $data ? new ApiDeliverable($data) : null;
-    }
+    
 
-    /** @return Collection<int, ApiDeliverable> */
-    public function getPopularDeliverables(int $limit = 6): Collection
+    /** @return \Illuminate\Support\Collection<int, ApiDeliverable> */
+    public function getPopularDeliverables(int $limit = 6): \Illuminate\Support\Collection
     {
         $response = $this->cachedGet('/deliverables/popular', ['limit' => $limit]);
         return collect($response['data'] ?? [])->map(fn ($i) => new ApiDeliverable($i));
     }
 
-    // -------------------------------------------------------------------------
-    // Newsletters
-    // -------------------------------------------------------------------------
+  
 
-    /** @return LengthAwarePaginator<ApiNewsletter> */
-    public function getNewsletters(int $perPage = 12, int $page = 1, ?string $search = null): LengthAwarePaginator
-    {
-        $params   = $this->filterParams(compact('perPage', 'page', 'search'));
-        $response = $this->cachedGet('/newsletters', $params);
-
-        $items = collect($response['data'] ?? [])
-            ->map(fn (array $item) => new ApiNewsletter($item));
-
-        return $this->buildPaginator($items, $response['pagination'] ?? [], $perPage, $page, '/newsletters');
-    }
-
-    /** @return Collection<int, ApiNewsletter> */
-    public function getLatestNewsletters(int $limit = 5): Collection
-    {
-        $response = $this->cachedGet('/newsletters/latest', ['limit' => $limit]);
-        return collect($response['data'] ?? [])->map(fn ($i) => new ApiNewsletter($i));
-    }
-
-    /** @return array<string, int> */
-    public function getNewsletterStats(): array
-    {
-        return (array) (($this->cachedGet('/newsletters/stats'))['data'] ?? []);
-    }
-
-    /**
-     * Subscribe an email to the newsletter via the ERP API.
-     *
-     * @return array<string, mixed>  Returns ['success' => true] or ['error' => string]
-     */
+    /** @return array<string, mixed> */
     public function subscribeNewsletter(string $email, ?string $name = null): array
     {
         $payload = array_filter(['email' => $email, 'name' => $name]);
-
         return $this->post('/newsletters/subscribe', $payload);
     }
 
-    /**
-     * Submit a contact form message via the ERP API.
-     *
-     * @return array<string, mixed>  Returns ['success' => true] or ['error' => string]
-     */
+    /** @return array<string, mixed> */
     public function submitContact(string $name, string $email, ?string $phone, ?string $subject, string $message): array
     {
         $payload = array_filter([
@@ -218,17 +115,7 @@ class ContentApiService
         return $this->post('/contacts', $payload);
     }
 
-    /**
-     * Invalidate all cached API responses (call after writing to ERP).
-     */
-    public function flushCache(): void
-    {
-        Cache::tags(['erp-api'])->flush();
-    }
-
-    // -------------------------------------------------------------------------
-    // Internal helpers
-    // -------------------------------------------------------------------------
+  
 
     private function buildClient(): \Illuminate\Http\Client\PendingRequest
     {

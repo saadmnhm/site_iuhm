@@ -145,7 +145,7 @@ class ApiPost implements UrlRoutable
     }
 
     // -------------------------------------------------------------------------
-    // UrlRoutable – lets route('posts.show', $apiPost) generate the right URL
+    // UrlRoutable – lets route('actualite.show', $apiPost) generate the right URL
     // -------------------------------------------------------------------------
 
     public function getRouteKey(): string

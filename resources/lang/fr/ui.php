@@ -59,6 +59,8 @@ return [
     'home_contact_email_label' => 'Email',
     'home_contact_email' => 'contact@uucasablanca.ma',
     'home_contact_map_button' => 'Ouvrir dans Google Maps',
+    'home_latest_news_title' => 'Dernières actualités',
+    'home_view_all' => 'Voir toutes',
 
     'arabic' => 'Arabe',
     'french' => 'Francais',

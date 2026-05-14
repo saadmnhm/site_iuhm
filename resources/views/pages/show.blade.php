@@ -42,7 +42,7 @@
                     <h3 class="text-lg font-semibold text-slate-900">{{ $post->getLocalized('title') }}</h3>
                     <p class="mt-2 text-sm text-slate-600">{{ $post->getLocalized('excerpt') }}</p>
 
-                    <x-ui.button variant="ghost" size="sm" class="mt-4" :href="route('posts.show', $post)">
+                    <x-ui.button variant="ghost" size="sm" class="mt-4" :href="route('actualite.show', $post)">
                         {{ __('ui.read_more') }}
                     </x-ui.button>
                 </x-ui.card>

@@ -100,7 +100,7 @@
                     <!-- Content -->
                     <div class="flex flex-col flex-1 p-8">
                         <h3 class="text-[1.35rem] font-bold text-[#0B1528] leading-tight mb-4 group-hover:text-[#214f95] transition-colors">
-                            <a href="{{ route('posts.show', $post) }}" class="focus:outline-none">
+                            <a href="{{ route('articles.show', $post->slug) }}" class="focus:outline-none">
                                 <span class="absolute inset-0" aria-hidden="true"></span>
                                 {{ $post->getLocalized('title') }}
                             </a>

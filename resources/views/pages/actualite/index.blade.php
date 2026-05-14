@@ -33,8 +33,8 @@
 
                 <!-- Hero Image with Overlapping Card -->
                 <div class="relative">
-                    <div class="relative overflow-hidden rounded-[2rem] aspect-[4/3] shadow-2xl shadow-slate-300/40">
-                        <img src="https://images.unsplash.com/photo-1599839619722-39751411ea63?auto=format&fit=crop&w=1200&q=80" alt="Garden" class="w-full h-full object-cover">
+                    <div class="relative overflow-hidden rounded-[2rem] ">
+                        <img src="{{ asset('assets/images/act.png') }}" alt="Garden" class="w-full h-full object-cover">
                     </div>
                     
                     <!-- Floating Stats Card -->
@@ -74,7 +74,7 @@
             <!-- News grid -->
             <div id="news-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" :class="{ 'opacity-50 pointer-events-none': loading }">
                 @forelse($posts as $post)
-                <article class="group flex flex-col bg-[#F8F9FA] rounded-[2rem] overflow-hidden transition hover:shadow-lg hover:shadow-slate-200/50 border border-slate-100">
+                <article class="group relative flex flex-col bg-[#F8F9FA] rounded-[2rem] overflow-hidden transition hover:shadow-lg hover:shadow-slate-200/50 border border-slate-100">
                     <div class="relative h-52 w-full overflow-hidden bg-slate-100 shrink-0">
                         @if($post->page)
                         <div class="absolute top-4 left-4 z-10 rounded-full bg-[#82E682] px-3 py-1 text-[0.65rem] font-extrabold uppercase tracking-widest text-[#0a471b] shadow-sm">
@@ -87,7 +87,10 @@
                     </div>
                     <div class="flex flex-col flex-1 p-8">
                         <h3 class="text-[1.15rem] font-bold text-[#0f172a] leading-tight mb-3 group-hover:text-[#10752d] transition-colors line-clamp-2">
-                            <a href="{{ route('posts.show', $post->slug) }}">{{ $post->getLocalized('title') }}</a>
+                            <a href="{{ route('actualite.show', $post->slug) }}" class="focus:outline-none">
+                                <span class="absolute inset-0" aria-hidden="true"></span>
+                                {{ $post->getLocalized('title') }}
+                            </a>
                         </h3>
                         <p class="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-6 flex-1">
                             {{ $post->getLocalized('excerpt') ?: Str::limit(strip_tags($post->getLocalized('content')), 130) }}
